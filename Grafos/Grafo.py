@@ -84,7 +84,7 @@ class Grafo():
                             if x[0]==u: self.__adj[v].remove(x)
 
     def existe(self, u, v):
-        '''verifica se existe algma arresta que liga dois vertices'''
+        '''verifica se existe alguma aresta, ligando dois vertices'''
         if self.peso():
             for x in self.__adj[u]:
                 if x[0]==v:
