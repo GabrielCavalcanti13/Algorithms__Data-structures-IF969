@@ -11,10 +11,11 @@ class Node():
 		return self.__str__()
 
 class List():
-	def __init__(self, *item = None):
+	def __init__(self, item = None):
 		self.len = 0
 		if item is None:
-			self.head = Node() = self.tail
+			self.head = Node()
+			self.tail = self.head
 		else:
 			aux = self.head
 			for x in item:
@@ -34,24 +35,39 @@ class List():
 	def append(self, item):
 		self.tail.next_node = Node(item,self.tail)
 		self.tail = self.tail.next_node
+		self.len += 1
 
-	def pop(self, index):
+	def pop(self, index = None):
+		if index is None:
+			index = self.len -1
 		cont = 0
 		aux = self.head.next_node
-		if index >= self.__len__():
-			index = self.__len__() - 1
+		if self.empty() or index > self.len:
+			raise IndexError("Index Error")
 		while cont < index:
 			aux = aux.next_node
 			cont+=1
-		if cont == self.__len__():
+		if aux.next_node is None:
 			aux.previus_node.next_node = aux.next_node
+			self.len -= 1
 			return aux
 		aux.previus_node.next_node = aux.next_node
 		aux.next_node.previus_node = aux.previus_node
-			
+		self.len -= 1
+		return aux
 
+	def __repr__(self):
+		aux = self.head.next_node
+		listRepr = "["
+		while aux != None:
+			if aux.next_node is None:
+				listRepr += str(aux)
+			else:
+				listRepr += str(aux) + ", "
+			aux = aux.next_node
+		return listRepr + "]"
 
+	def __str__(self):
+		return self.__repr__()
 
-
-
-		
+		 
